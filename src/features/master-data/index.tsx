@@ -9,6 +9,7 @@ import {
 } from "@/components/app-ui/app-card";
 import { UploadCloud } from "lucide-react";
 import { CardTitle } from "@/components/ui/card";
+import { DepartmentManagement } from "./components/department-management";
 
 export const MasterDataGrid = () => {
   return (
@@ -29,11 +30,7 @@ export const MasterDataGrid = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
     
         <div className="lg:col-span-6">
-            <AppCard>
-                <AppCardHeader>
-                    <CardTitle>Department Management</CardTitle>
-                </AppCardHeader>
-            </AppCard>
+            <DepartmentManagement />
         </div>
 
         <div className="lg:col-span-6">
