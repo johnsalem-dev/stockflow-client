@@ -28,7 +28,7 @@ export const MasterDataGrid = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
     
-        <div className="lg:col-span-4">
+        <div className="lg:col-span-6">
             <AppCard>
                 <AppCardHeader>
                     <CardTitle>Department Management</CardTitle>
@@ -36,7 +36,7 @@ export const MasterDataGrid = () => {
             </AppCard>
         </div>
 
-        <div className="lg:col-span-8">
+        <div className="lg:col-span-6">
             <AppCard>
                 <AppCardHeader>
                     <CardTitle>Categories</CardTitle>
