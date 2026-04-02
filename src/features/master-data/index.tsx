@@ -9,7 +9,9 @@ import {
 } from "@/components/app-ui/app-card";
 import { UploadCloud } from "lucide-react";
 import { CardTitle } from "@/components/ui/card";
+import { CategoryManagement } from "./components/categories";
 import { DepartmentManagement } from "./components/department-management";
+import { EmployeeDirectory } from "./components/employee-identity";
 
 export const MasterDataGrid = () => {
   return (
@@ -34,19 +36,11 @@ export const MasterDataGrid = () => {
         </div>
 
         <div className="lg:col-span-6">
-            <AppCard>
-                <AppCardHeader>
-                    <CardTitle>Categories</CardTitle>
-                </AppCardHeader>
-            </AppCard>
+            <CategoryManagement />
         </div>
 
         <div className="lg:col-span-12">
-            <AppCard>
-                <AppCardHeader>
-                    <CardTitle>Employee Identity Directory</CardTitle>
-                </AppCardHeader>
-            </AppCard>
+            <EmployeeDirectory />
         </div>
     </div>
 </div>

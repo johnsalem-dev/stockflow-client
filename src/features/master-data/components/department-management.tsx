@@ -36,6 +36,21 @@ const departments = [
     shortName: "TEC",
     type: "cyan",
   },
+  {
+    id: "D012",
+    name: "Systems Tech",
+    head: "Julian Thorne",
+    shortName: "TEC",
+    type: "cyan",
+  },
+  {
+    id: "D012",
+    name: "Systems Tech",
+    head: "Julian Thorne",
+    shortName: "TEC",
+    type: "cyan",
+  },
+  
 ];
 
 // Dark-mode friendly color mapping
@@ -78,14 +93,18 @@ const DepartmentRow = ({ dept }: { dept: typeof departments[0] }) => (
 export const DepartmentManagement = () => {
   return (
     <AppCard className="w-full border-none shadow-none overflow-hidden bg-card"> 
-      <AppCardHeader className="flex flex-row items-center justify-between pt-2 px-4 pb-2 space-y-0 border-b border-border bg-muted/20">
-        <CardTitle className="text-foreground text-lg font-bold leading-tight">
-          Department Management
-        </CardTitle>
-        <Building2 className="h-4 w-4 text-muted-foreground" />
+      <AppCardHeader className="flex flex-row items-center gap-3 pt-4 px-4 pb-3 space-y-0 rounded-t-xl">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 shrink-0">
+            <Building2 className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+          </div>
+          <CardTitle className="text-foreground text-lg font-bold leading-tight">
+            Department Management
+          </CardTitle>
+        </div>
       </AppCardHeader>
       
-      <AppCardContent className="p-0 pt-0">
+      <AppCardContent className="p-0 pt-0 h-[305px] overflow-y-auto custom-scrollbar">
         <div className="flex flex-col w-full">
           {departments.map((dept) => (
             <DepartmentRow key={dept.id} dept={dept} />
