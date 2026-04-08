@@ -1,6 +1,8 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
+import toast from "react-hot-toast"
+import { Loader2 } from "lucide-react"
 
 const buttonVariants = cva(
   // BASE: Swapped blue-500 for shadcn's semantic 'ring' variable
@@ -36,16 +38,26 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
+    VariantProps<typeof buttonVariants> {
+      isLoading?: Boolean;
+    }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ className, variant, size, isLoading, disabled, children, ...props }, ref) => {
+    const isDisabled = !!isLoading || !!disabled
     return (
       <button
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
+        disabled={isDisabled}
         {...props}
-      />
+      >
+        {isLoading && (
+          <Loader2 className={cn("h-4 w-4 animate-spin", children && "mr-2")} />
+        )}
+        {children}
+      </button>
+
     )
   }
 )

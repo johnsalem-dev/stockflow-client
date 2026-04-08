@@ -1,14 +1,6 @@
 import { PageHeader } from "@/components/layouts/page-header";
 import { Button } from "@/components/app-ui/button";
-import {
-  AppCard,
-  AppCardContent,
-  AppCardHeader,
-  AppCardLabel,
-  AppCardValue,
-} from "@/components/app-ui/app-card";
 import { UploadCloud } from "lucide-react";
-import { CardTitle } from "@/components/ui/card";
 import { CategoryManagement } from "./components/categories";
 import { DepartmentManagement } from "./components/department-management";
 import { EmployeeDirectory } from "./components/employee-identity";

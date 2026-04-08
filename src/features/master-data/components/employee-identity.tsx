@@ -1,6 +1,7 @@
 import { 
-  Search, UserPlus, MoreVertical, CheckCircle2, 
-  AlertCircle, ShieldCheck, ChevronDown 
+  Search, MoreVertical, CheckCircle2, 
+  AlertCircle, ShieldCheck, ChevronDown, 
+  User
 } from "lucide-react"
 import * as React from "react"
 import {
@@ -20,41 +21,44 @@ import { AppDataGrid } from "@/components/app-ui/app-data-grid"
 import { Button } from "@/components/app-ui/button"
 import { CardTitle, CardDescription } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { AddEmployeeDialog } from "../dialog/add-employee"
+import { useEmployees } from "../apis/employee/get-employees"
+import type { Employee } from "@/types/api"
 
-type Employee = {
-  id: string
-  name: string
-  email: string
-  department: string
-  access: "Full Access" | "Restricted" | string
-  validation: string
-  isValid: boolean
-  avatar: string
-}
+// type Employee = {
+//   id: string
+//   name: string
+//   email: string
+//   department: string
+//   access: "Full Access" | "Restricted" | string
+//   validation: string
+//   isValid: boolean
+//   avatar: string
+// }
 
-// 1. Data Mockup based on the directory image
-const employees: Employee[] = [
-  {
-    id: "992-PX",
-    name: "Eleanor Shellstrop",
-    email: "e.shell@company.com",
-    department: "Administration",
-    access: "Full Access",
-    validation: "Verified",
-    isValid: true,
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Eleanor",
-  },
-  {
-    id: "451-LQ",
-    name: "Chidi Anagonye",
-    email: "c.anag@company.com",
-    department: "Information Technology",
-    access: "Restricted",
-    validation: "Missing ID Proof",
-    isValid: false,
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Chidi",
-  },
-]
+// // 1. Data Mockup based on the directory image
+// const employees: Employee[] = [
+//   {
+//     id: "992-PX",
+//     name: "Eleanor Shellstrop",
+//     email: "e.shell@company.com",
+//     department: "Administration",
+//     access: "Full Access",
+//     validation: "Verified",
+//     isValid: true,
+//     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Eleanor",
+//   },
+//   {
+//     id: "451-LQ",
+//     name: "Chidi Anagonye",
+//     email: "c.anag@company.com",
+//     department: "Information Technology",
+//     access: "Restricted",
+//     validation: "Missing ID Proof",
+//     isValid: false,
+//     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Chidi",
+//   },
+// ]
 
 const AccessBadge = ({ type }: { type: string }) => {
   const isFull = type === "Full Access"
@@ -90,25 +94,27 @@ const TABLE_GRID =
 export const EmployeeDirectory = () => {
   const [globalFilter, setGlobalFilter] = React.useState("")
   const [sorting, setSorting] = React.useState<SortingState>([])
+  const {data: employees} = useEmployees();
 
   const columns = React.useMemo<ColumnDef<Employee>[]>(
     () => [
       {
         id: "profile",
         header: "Employee Profile",
-        accessorFn: (row) => `${row.name} ${row.email}`,
+        accessorFn: (row) => `${row.fullName} ${row.email}`,
         cell: ({ row }) => {
           const emp = row.original
           return (
             <div className="flex items-center gap-2.5">
-              <img
-                src={emp.avatar}
+              {/* <img
+                src={<PersonStanding />}
                 alt=""
                 className="w-9 h-9 rounded-lg bg-muted border border-border/50"
-              />
+              /> */}
+              <User />
               <div>
                 <p className="text-[13px] font-bold text-foreground leading-snug">
-                  {emp.name}
+                  {emp.fullName}
                 </p>
                 <p className="text-[11px] text-muted-foreground leading-snug">
                   {emp.email}
@@ -120,12 +126,12 @@ export const EmployeeDirectory = () => {
         enableSorting: true,
       },
       {
-        id: "corpId",
-        header: "Corp ID",
-        accessorKey: "id",
+        id: "empID",
+        header: "Employee ID",
+        accessorKey: "employeeId",
         cell: ({ getValue }) => (
           <span className="bg-muted px-2 py-1 rounded text-[10px] font-mono font-bold text-muted-foreground">
-            EID-{String(getValue())}
+            {String(getValue())}
           </span>
         ),
         enableSorting: true,
@@ -133,11 +139,13 @@ export const EmployeeDirectory = () => {
       {
         accessorKey: "department",
         header: "Department",
-        cell: ({ getValue }) => (
+        cell: ({ row }) => {
+          const emp = row.original;
+          return(
           <div className="text-sm text-foreground/80 font-medium">
-            {String(getValue())}
+            {emp.department?.name}
           </div>
-        ),
+        )},
         enableSorting: true,
       },
       {
@@ -149,8 +157,8 @@ export const EmployeeDirectory = () => {
       {
         id: "validation",
         header: "Validation",
-        accessorFn: (row) => (row.isValid ? "Verified" : row.validation),
-        cell: ({ row }) => <ValidationStatus isValid={row.original.isValid} />,
+        // accessorFn: (row) => (row.isValid ? "Verified" : row.validation),
+        cell: () => <ValidationStatus isValid={true} />,
         enableSorting: true,
       },
       {
@@ -170,7 +178,7 @@ export const EmployeeDirectory = () => {
   )
 
   const table = useReactTable({
-    data: employees,
+    data: employees ?? [],
     columns,
     state: { globalFilter, sorting },
     onGlobalFilterChange: setGlobalFilter,
@@ -195,9 +203,7 @@ export const EmployeeDirectory = () => {
             Linking individual records to Corporate Employee IDs for immutable tracking.
           </CardDescription>
         </div>
-        <Button variant="primary" className="gap-2 px-4 h-11">
-          <UserPlus className="h-4 w-4" /> Register New Employee
-        </Button>
+        <AddEmployeeDialog />
       </AppCardHeader>
 
       <AppCardContent className="p-6 pt-4 mt-0">
@@ -220,7 +226,7 @@ export const EmployeeDirectory = () => {
           ))}
         </div>
 
-        {/* Directory List Container */}
+        
         <AppDataGrid
           table={table}
           gridClassName={TABLE_GRID}
