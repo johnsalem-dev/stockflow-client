@@ -2,11 +2,8 @@ import * as React from 'react';
 import { type UseFormRegisterReturn, type FieldError } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react'; // Adding a custom arrow since you used appearance-none
+import type { Option } from '@/types/form';
 
-export type Option = {
-  label: string | number; // Native <option> only supports strings/numbers as children
-  value: string | number;
-};
 
 interface SelectFieldProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
@@ -33,7 +30,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectFieldProps>(
             className={cn(
               /* Swapped #F1F3F6 for bg-muted/50. It gives that 'filled' look in light mode 
                  and a subtle deep-gray in dark mode. */
-              "flex h-11 w-full rounded-md border border-input bg-muted/50 px-3 py-2 text-sm",
+              "flex h-11 w-full rounded-md border border-input px-3 py-2 text-sm",
               "appearance-none ring-offset-background transition-all",
               /* FOCUS: Using our brand ring and shifting background slightly */
               "focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1 focus:bg-background",
@@ -46,7 +43,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectFieldProps>(
             {...registration}
             {...props}
           >
-            {isLoading ? <option>Loading departments...</option> : options.map(({ label, value }) => (
+            {isLoading ? <option>Loading...</option> : options.map(({ label, value, }) => (
               <option 
                 key={String(value)} 
                 value={value} 

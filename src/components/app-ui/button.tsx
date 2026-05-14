@@ -1,7 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
-import toast from "react-hot-toast"
 import { Loader2 } from "lucide-react"
 
 const buttonVariants = cva(
@@ -21,6 +20,9 @@ const buttonVariants = cva(
         
         // ELEVATED: Keeps the shadow but uses semantic colors for the text and hover
         elevated: "bg-background text-primary hover:bg-accent hover:text-accent-foreground shadow-lg border border-border",
+
+        segmentedInactive: "bg-transparent text-muted-foreground hover:text-foreground shadow-none border-none",
+        segmentedActive: "bg-background text-primary shadow-sm border-none hover:bg-background",
       },
       size: {
         sm: "h-9 px-3 text-xs",

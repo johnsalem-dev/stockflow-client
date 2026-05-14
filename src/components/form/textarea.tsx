@@ -22,7 +22,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           id={registration.name}
           className={cn(
             /* BASE: Swapped #F1F3F6 for bg-muted/50. Added border-input for definition. */
-            "flex min-h-[120px] w-full rounded-md border border-input bg-muted/50 px-3 py-2 text-sm",
+            "flex min-h-[120px] w-full rounded-md border border-input px-3 py-2 text-sm",
             "ring-offset-background transition-all placeholder:text-muted-foreground",
             /* FOCUS: Shifts to pure background and shows the brand 'ring' */
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:bg-background",

@@ -1,8 +1,9 @@
+import { ProcurementBlock } from "@/features/procurement";
 
 
 const Procurement = () => {
     return (
-        <h1>Procurement</h1>
+        <ProcurementBlock />
     )
 }
 

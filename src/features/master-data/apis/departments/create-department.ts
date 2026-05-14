@@ -1,10 +1,11 @@
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import { useMutation, useQueryClient, type MutationFunctionContext } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import z from "zod";
 import { getDepartmentsQueryOptions } from "./get-departments";
 import type { Department } from "@/types/api";
+import { API_CONSTS } from "@/config/consts";
 
 export const createDepartmentInputSchema = z.object({
     name: z
@@ -28,7 +29,7 @@ export const createDepartmentInputSchema = z.object({
   export type CreateDepartmentInputSchema = z.infer<typeof createDepartmentInputSchema>;
 
   export const createDepartment = ({ data }: { data: CreateDepartmentInputSchema }): Promise<Department> => {
-        return api.post(`/departments`, data);
+        return api.post(API_CONSTS.DEPARTMENT.BASE.ENDPOINT, data);
   };
 
   type UseCreateDepartmentOptions = {

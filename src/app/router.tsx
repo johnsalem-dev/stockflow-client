@@ -38,8 +38,24 @@ export const createAppRouter = (queryClient: QueryClient) => createBrowserRouter
                 lazy: () => import('./routes/item-catalog/index.tsx').then(convert(queryClient))
             },
             {
+                path: paths.itemCatalog.path,
+                lazy: () => import('./routes/item-catalog/index.tsx').then(convert(queryClient))
+            },
+            {
+                path: paths.addItemCatalog.path,
+                lazy: () => import('./routes/item-catalog/add/index.tsx').then(convert(queryClient))
+            },
+            {
                 path: paths.procurement.path,
                 lazy: () => import('./routes/procurement/index.tsx').then(convert(queryClient))
+            },
+            {
+                path: paths.newStockInward.path,
+                lazy: () => import('./routes/procurement/stock-inward/index.tsx').then(convert(queryClient))
+            },
+            {
+                path: paths.stockOutward.path,
+                lazy: () => import('./routes/issuance//new-issaunce/index.tsx').then(convert(queryClient))
             },
             {
                 path: paths.issuance.path,

@@ -36,3 +36,19 @@ export const getDeptColorClass = (name: string): string => {
   return colorPairs[index];
 };
 
+
+
+export const formatTableDate = (dateString: string) => {
+  const dateObj = new Date(dateString);
+  return {
+    dateFormatted: dateObj.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    }),
+    timeFormatted: dateObj.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  };
+};
