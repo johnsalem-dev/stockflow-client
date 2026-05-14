@@ -1,14 +1,12 @@
 import { 
-  Search, MoreVertical, CheckCircle2, 
-  AlertCircle, ShieldCheck, ChevronDown, 
-  User
+  Search, ShieldCheck, ChevronDown, 
 } from "lucide-react"
 import * as React from "react"
 import {
+  type ColumnDef,
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
-  type ColumnDef,
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table"
@@ -20,73 +18,12 @@ import {
 import { AppDataGrid } from "@/components/app-ui/app-data-grid"
 import { Button } from "@/components/app-ui/button"
 import { CardTitle, CardDescription } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
 import { AddEmployeeDialog } from "../dialog/add-employee"
 import { useEmployees } from "../apis/employee/get-employees"
 import type { Employee } from "@/types/api"
+import { EmployeeColumns } from "./table-data/columns"
 
-// type Employee = {
-//   id: string
-//   name: string
-//   email: string
-//   department: string
-//   access: "Full Access" | "Restricted" | string
-//   validation: string
-//   isValid: boolean
-//   avatar: string
-// }
 
-// // 1. Data Mockup based on the directory image
-// const employees: Employee[] = [
-//   {
-//     id: "992-PX",
-//     name: "Eleanor Shellstrop",
-//     email: "e.shell@company.com",
-//     department: "Administration",
-//     access: "Full Access",
-//     validation: "Verified",
-//     isValid: true,
-//     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Eleanor",
-//   },
-//   {
-//     id: "451-LQ",
-//     name: "Chidi Anagonye",
-//     email: "c.anag@company.com",
-//     department: "Information Technology",
-//     access: "Restricted",
-//     validation: "Missing ID Proof",
-//     isValid: false,
-//     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Chidi",
-//   },
-// ]
-
-const AccessBadge = ({ type }: { type: string }) => {
-  const isFull = type === "Full Access"
-  return (
-    <span className={cn(
-      "inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold border",
-      isFull 
-        ? "bg-orange-500/10 text-orange-600 border-orange-200 dark:border-orange-500/20" 
-        : "bg-blue-500/10 text-blue-600 border-blue-200 dark:border-blue-500/20"
-    )}>
-      <span className="w-1.5 h-1.5 rounded-full bg-current" />
-      {type}
-    </span>
-  )
-}
-
-const ValidationStatus = ({ isValid }: { isValid: boolean }) => (
-  <div className={cn(
-    "flex items-center gap-1.5 font-bold text-[10px]",
-    isValid ? "text-green-600" : "text-red-600"
-  )}>
-    {isValid ? (
-      <><CheckCircle2 className="h-3.5 w-3.5" /> VERIFIED</>
-    ) : (
-      <><AlertCircle className="h-3.5 w-3.5" /> MISSING ID PROOF</>
-    )}
-  </div>
-)
 
 const TABLE_GRID =
   "grid grid-cols-[2fr_1fr_1.5fr_1fr_1fr_auto] items-center px-3"
@@ -95,87 +32,8 @@ export const EmployeeDirectory = () => {
   const [globalFilter, setGlobalFilter] = React.useState("")
   const [sorting, setSorting] = React.useState<SortingState>([])
   const {data: employees} = useEmployees();
+  const columns: ColumnDef<Employee>[] = React.useMemo(() => EmployeeColumns, []);
 
-  const columns = React.useMemo<ColumnDef<Employee>[]>(
-    () => [
-      {
-        id: "profile",
-        header: "Employee Profile",
-        accessorFn: (row) => `${row.fullName} ${row.email}`,
-        cell: ({ row }) => {
-          const emp = row.original
-          return (
-            <div className="flex items-center gap-2.5">
-              {/* <img
-                src={<PersonStanding />}
-                alt=""
-                className="w-9 h-9 rounded-lg bg-muted border border-border/50"
-              /> */}
-              <User />
-              <div>
-                <p className="text-[13px] font-bold text-foreground leading-snug">
-                  {emp.fullName}
-                </p>
-                <p className="text-[11px] text-muted-foreground leading-snug">
-                  {emp.email}
-                </p>
-              </div>
-            </div>
-          )
-        },
-        enableSorting: true,
-      },
-      {
-        id: "empID",
-        header: "Employee ID",
-        accessorKey: "employeeId",
-        cell: ({ getValue }) => (
-          <span className="bg-muted px-2 py-1 rounded text-[10px] font-mono font-bold text-muted-foreground">
-            {String(getValue())}
-          </span>
-        ),
-        enableSorting: true,
-      },
-      {
-        accessorKey: "department",
-        header: "Department",
-        cell: ({ row }) => {
-          const emp = row.original;
-          return(
-          <div className="text-sm text-foreground/80 font-medium">
-            {emp.department?.name}
-          </div>
-        )},
-        enableSorting: true,
-      },
-      {
-        accessorKey: "access",
-        header: "System Access",
-        cell: ({ getValue }) => <AccessBadge type={String(getValue())} />,
-        enableSorting: true,
-      },
-      {
-        id: "validation",
-        header: "Validation",
-        // accessorFn: (row) => (row.isValid ? "Verified" : row.validation),
-        cell: () => <ValidationStatus isValid={true} />,
-        enableSorting: true,
-      },
-      {
-        id: "settings",
-        header: () => <div className="text-right">Settings</div>,
-        cell: () => (
-          <div className="text-right">
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded-full">
-              <MoreVertical className="h-4 w-4" />
-            </Button>
-          </div>
-        ),
-        enableSorting: false,
-      },
-    ],
-    []
-  )
 
   const table = useReactTable({
     data: employees ?? [],

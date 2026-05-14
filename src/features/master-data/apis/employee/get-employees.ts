@@ -3,6 +3,7 @@ import { queryOptions, useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api-client';
 import type { Employee } from '@/types/api';
 import type { QueryConfig } from '@/lib/react-query';
+import { API_CONSTS } from '@/config/consts';
 
 export const getEmployees = (
   params: { 
@@ -11,7 +12,7 @@ export const getEmployees = (
     search?: string; 
   } = {}
 ): Promise<Employee[]> => {
-  return api.get(`/employees`, {
+  return api.get(API_CONSTS.EMPLOYEE.BASE.ENDPOINT, {
     params,
   });
 };
@@ -24,7 +25,7 @@ export const getEmployeesQueryOptions = (
   } = {}
 ) => {
   return queryOptions({
-    queryKey: ['employees', params],
+    queryKey: [...API_CONSTS.EMPLOYEE.BASE.QUERY_KEYS, params],
     queryFn: () => getEmployees(params),
   });
 };

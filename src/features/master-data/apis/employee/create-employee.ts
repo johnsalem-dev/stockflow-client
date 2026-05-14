@@ -6,10 +6,7 @@ import { api } from '@/lib/api-client';
 import type { MutationConfig } from '@/lib/react-query';
 import type { Employee } from '@/types/api';
 import { getEmployeesQueryOptions } from './get-employees';
-
-
-// We'll need the list query options for invalidation later
-// import { getEmployeesQueryOptions } from './get-employees';
+import { API_CONSTS } from '@/config/consts';
 
 export const createEmployeeInputSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
@@ -27,7 +24,7 @@ export const createEmployee = ({
 }: {
   data: CreateEmployeeInput;
 }): Promise<Employee> => {
-  return api.post(`/employees`, data);
+  return api.post(API_CONSTS.EMPLOYEE.BASE.ENDPOINT, data);
 };
 
 type UseCreateEmployeeOptions = {

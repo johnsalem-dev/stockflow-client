@@ -1,38 +1,10 @@
-import { Plus, LayoutGrid } from "lucide-react";
+import { LayoutGrid } from "lucide-react";
 import { AppCard, AppCardContent, AppCardHeader } from "@/components/app-ui/app-card";
 import { CardTitle } from "@/components/ui/card";
 import { cn, getDeptColorClass } from "@/lib/utils";
-import { Button } from "@/components/app-ui/button";
 import { AddCategoryDialog } from "../dialog/add-category";
 import { useCategories } from "../apis/category/get-categories";
 
-// const categories = [
-//   {
-//     id: "cat-1",
-//     name: "Kitchen",
-//     assetClass: "Operations",
-//     itemCount: 142,
-//     icon: "🍳", // Replace with your Lucide icons (e.g., Utensils)
-//     color: "text-orange-600 bg-orange-50 dark:bg-orange-500/10 dark:text-orange-400",
-//   },
-//   {
-//     id: "cat-2",
-//     name: "Stationery",
-//     assetClass: "Admin",
-//     itemCount: 89,
-//     icon: "🖊️",
-//     color: "text-blue-600 bg-blue-50 dark:bg-blue-500/10 dark:text-blue-400",
-//   },
-//   {
-//     id: "cat-3",
-//     name: "Hardware",
-//     assetClass: "IT Infrastructure",
-//     itemCount: 214,
-//     icon: "💻",
-//     color: "text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400",
-//   },
-  
-// ];
 
 export const CategoryManagement = () => {
   const { data: categories } = useCategories();

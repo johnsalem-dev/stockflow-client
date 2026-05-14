@@ -3,12 +3,13 @@ import { queryOptions, useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api-client';
 import type { Category } from '@/types/api';
 import type { QueryConfig } from '@/lib/react-query';
+import { API_CONSTS } from '@/config/consts';
 
 
 export const getCategories = (
   params: { page?: number; departmentId?: number } = {}
 ): Promise<Category[]> => {
-  return api.get(`/categories`, {
+  return api.get(API_CONSTS.CATEGORY.BASE.ENDPOINT, {
     params,
   });
 };
@@ -17,7 +18,7 @@ export const getCategoriesQueryOptions = (
   params: { page?: number; departmentId?: number } = {}
 ) => {
   return queryOptions({
-    queryKey: ['categories', params],
+    queryKey: [...API_CONSTS.CATEGORY.BASE.QUERY_KEYS, params],
     queryFn: () => getCategories(params),
   });
 };

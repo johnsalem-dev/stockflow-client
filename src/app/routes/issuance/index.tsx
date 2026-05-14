@@ -1,8 +1,9 @@
+import { IssuanceBlock } from "@/features/issuance";
 
 
 const Issuance = () => {
     return (
-        <h1>Issuance</h1>
+        <IssuanceBlock />
     )
 }
 

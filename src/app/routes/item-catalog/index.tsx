@@ -1,8 +1,9 @@
+import { ItemCatalogBlock } from "@/features/item-catalog";
 
 
 const ItemCatalog = () => {
     return (
-        <h1>ItemCatalog</h1>
+        <ItemCatalogBlock />
     )
 }
 

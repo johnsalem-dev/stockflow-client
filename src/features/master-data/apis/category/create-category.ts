@@ -6,6 +6,7 @@ import { api } from '@/lib/api-client';
 import { type MutationConfig } from '@/lib/react-query';
 import type { Category } from '@/types/api';
 import { getCategoriesQueryOptions } from './get-categories';
+import { API_CONSTS } from '@/config/consts';
 
 export const createCategoryInputSchema = z.object({
   emoji: z.string().optional(),
@@ -26,7 +27,7 @@ export const createCategory = ({
     ...data,
     departmentId: Number(data.departmentId)
   }
-  return api.post(`/categories`, payload);
+  return api.post(API_CONSTS.CATEGORY.BASE.ENDPOINT, payload);
 };
 
 type UseCreateCategoryOptions = {
