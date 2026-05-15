@@ -2,7 +2,6 @@ import { Controller, useFormContext, type FieldValues, type Path } from 'react-h
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import { cn } from '@/lib/utils';
 import type { Option } from '@/types/form';
-import type { UseMutateAsyncFunction } from '@tanstack/react-query';
 
 interface AsyncCreatableProps<T extends FieldValues> {
   label: string;

@@ -1,4 +1,4 @@
-import React, { Fragment, type ReactNode } from "react"
+import { Fragment, type ReactNode } from "react"
 import { flexRender, type Table, type Row } from "@tanstack/react-table"
 import { cn } from "@/lib/utils"
 
