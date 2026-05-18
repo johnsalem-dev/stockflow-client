@@ -1,9 +1,9 @@
-import { cn, formatTableDate } from "@/lib/utils";
+import { formatTableDate } from "@/lib/utils";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import type { Issuance } from "@/types/api";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export const IssuanceColumns: ColumnDef<Issuance>[] = [
   {

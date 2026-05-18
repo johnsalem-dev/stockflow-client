@@ -1,22 +1,5 @@
-import * as React from "react"
-import { ListFilter, ChevronDown, Shapes, TriangleAlert, X, Check } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/app-ui/button"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
+import { Shapes, TriangleAlert } from "lucide-react"
 import type { Table } from "@tanstack/react-table"
-import { AppCard, AppCardIcon, AppCardLabel, AppCardValue } from "@/components/app-ui/app-card"
 import { KPICard } from "@/components/app-ui/kpi-card"
 import { InventoryToolbar } from "./inventory-toolbar"
 import type { Category } from "@/types/api"
@@ -29,8 +12,7 @@ interface CatalogToolbarProps<TData> {
 }
 
 export function CatalogToolbar<TData>({ table, totalItems, criticalCount, categories }: CatalogToolbarProps<TData>) {
-  // const categories = ["Paper Supplies", "Printer Consumables", "Janitorial", "Pantry"]
-  // const uoms = ["Reams", "Units", "Packs", "Cases"] // Preserved for your future use
+
 
   const currentCategory = (table.getColumn("category")?.getFilterValue() as string) ?? ""
   const currentStatus = (table.getColumn("status")?.getFilterValue() as string) ?? ""
